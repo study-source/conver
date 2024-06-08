@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单位换算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .converter {
+            margin-bottom: 20px;
+        }
+        .converter label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .converter input,
+        .converter select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .result {
+            padding: 10px;
+            background: #efefef;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>单位换算器</h1>
+
+        <div class="converter">
+            <h2>长度转换</h2>
+            <label for="length-input">输入长度：</label>
+            <input type="number" id="length-input" placeholder="输入数值">
+            <label for="length-unit-from">从：</label>
+            <select id="length-unit-from">
+                <option value="mm">毫米</option>
+                <option value="cm">厘米</option>
+                <option value="m">米</option>
+            </select>
+            <label for="length-unit-to">到：</label>
+            <select id="length-unit-to">
+                <option value="mm">毫米</option>
+                <option value="cm">厘米</option>
+                <option value="m">米</option>
+            </select>
+            <button onclick="convertLength()">转换</button>
+            <div class="result" id="length-result"></div>
+        </div>
+
+        <div class="converter">
+            <h2>时间转换</h2>
+            <label for="time-input">输入时间：</label>
+            <input type="number" id="time-input" placeholder="输入数值">
+            <label for="time-unit-from">从：</label>
+            <select id="time-unit-from">
+                <option value="ns">纳秒</option>
+                <option value="ms">毫秒</option>
+                <option value="s">秒</option>
+                <option value="min">分钟</option>
+                <option value="hr">小时</option>
+                <option value="day">天</option>
+                <option value="year">年</option>
+            </select>
+            <label for="time-unit-to">到：</label>
+            <select id="time-unit-to">
+                <option value="ns">纳秒</option>
+                <option value="ms">毫秒</option>
+                <option value="s">秒</option>
+                <option value="min">分钟</option>
+                <option value="hr">小时</option>
+                <option value="day">天</option>
+                <option value="year">年</option>
+            </select>
+            <button onclick="convertTime()">转换</button>
+            <div class="result" id="time-result"></div>
+        </div>
+    </div>
+
+    <script>
+        function convertLength() {
+            let value = parseFloat(document.getElementById('length-input').value);
+            let fromUnit = document.getElementById('length-unit-from').value;
+            let toUnit = document.getElementById('length-unit-to').value;
+            let conversionFactors = {
+                mm: 1,
+                cm: 10,
+                m: 1000
+            };
+            let result = value * (conversionFactors[fromUnit] / conversionFactors[toUnit]);
+            document.getElementById('length-result').innerText = `结果：${result} ${toUnit}`;
+        }
+
+        function convertTime() {
+            let value = parseFloat(document.getElementById('time-input').value);
+            let fromUnit = document.getElementById('time-unit-from').value;
+            let toUnit = document.getElementById('time-unit-to').value;
+            let conversionFactors = {
+                ns: 1,
+                ms: 1e6,
+                s: 1e9,
+                min: 6e10,
+                hr: 3.6e12,
+                day: 8.64e13,
+                year: 3.1536e16
+            };
+            let result = value * (conversionFactors[fromUnit] / conversionFactors[toUnit]);
+            document.getElementById('time-result').innerText = `结果：${result} ${toUnit}`;
+        }
+    </script>
+</body>
+</html>
